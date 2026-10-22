@@ -20,10 +20,18 @@ Environment overrides use the `PAIRTRADE_` prefix, e.g.
 from __future__ import annotations
 
 from datetime import date, time
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# The repo root is the parent of `backend/`. `.env` is copied to the repo root
+# (`cp .env.example .env`), but the app is run as `cd backend && uvicorn
+# app:app` — so a CWD-relative ".env" would be looked up in `backend/` and
+# never found. Resolve it against the repo root instead.
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+_ENV_FILE = _REPO_ROOT / ".env"
 
 # ---------------------------------------------------------------------------
 # Transaction costs — STRATEGY.md §5.3
@@ -68,7 +76,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(
         env_prefix="PAIRTRADE_",
-        env_file=".env",
+        env_file=_ENV_FILE,
         env_file_encoding="utf-8",
         extra="ignore",
     )

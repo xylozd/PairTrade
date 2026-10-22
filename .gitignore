@@ -1,0 +1,214 @@
+# ============================================================================
+# NSE Intraday Pair Trading — .gitignore
+# Python (FastAPI backend) + Node/React (frontend) + Parquet/DuckDB market data
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Virtual environments
+# ----------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ----------------------------------------------------------------------------
+# Python bytecode / packaging
+# ----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ----------------------------------------------------------------------------
+# Python tooling caches
+# ----------------------------------------------------------------------------
+.pytest_cache/
+.mypy_cache/
+.mypy.ini.d/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.cache
+nosetests.xml
+
+# ----------------------------------------------------------------------------
+# Environment / secrets  (NOTE: .env.example IS tracked)
+# ----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+secrets/
+credentials.json
+service-account*.json
+
+# ----------------------------------------------------------------------------
+# Market data & backtest artifacts  (large binaries — never commit)
+# ----------------------------------------------------------------------------
+/data/
+/datasets/
+/storage/
+*.parquet
+*.parquet.*
+*.duckdb
+*.duckdb.wal
+*.feather
+*.arrow
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.npy
+*.npz
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-wal
+
+# Raw downloads from data providers
+/raw/
+!*.zip
+
+# Large run artifacts are excluded; the Markdown/JSON reports themselves are kept
+/docs/reports/**/*.parquet
+/docs/reports/**/*.zip
+
+# ----------------------------------------------------------------------------
+# Node / frontend
+# ----------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+.pnpm-store/
+*.tsbuildinfo
+
+# Frontend build output
+/dist/
+/build/
+/frontend/dist/
+/frontend/build/
+/frontend/.vite/
+.vite/
+*.local
+
+# ----------------------------------------------------------------------------
+# Test / coverage artifacts
+# ----------------------------------------------------------------------------
+coverage/
+.jest/
+/frontend/coverage/
+playwright-report/
+test-results/
+/screenshots/
+/videos/
+
+# ----------------------------------------------------------------------------
+# Logs
+# ----------------------------------------------------------------------------
+*.log
+/logs/
+/backend/logs/
+pids/
+*.pid
+*.seed
+
+# ----------------------------------------------------------------------------
+# Docker
+# ----------------------------------------------------------------------------
+docker-compose.override.yml
+
+# ----------------------------------------------------------------------------
+# Deployment / infrastructure
+# ----------------------------------------------------------------------------
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+*.tfvars
+!*.tfvars.example
+ansible/inventory
+deploy/*.local.yml
+
+# Caddy / TLS certs
+caddy_data/
+caddy_config/
+
+# Backups
+/backups/
+*.sql
+*.sql.gz
+*.dump
+
+# ----------------------------------------------------------------------------
+# IDE / editor
+# ----------------------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# ----------------------------------------------------------------------------
+# OS
+# ----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ----------------------------------------------------------------------------
+# Excluded on purpose — these SHOULD be tracked
+# ----------------------------------------------------------------------------
+# docs/                        design + strategy + plan documents
+# README.md                    project index
+# .env.example                 documented config template
+# alembic/versions/            database migrations
+# backend/data/                SOURCE CODE (downloader, store, loaders)
+# backend/mcp/                 MCP server source
+# frontend/src/                frontend source
+# scripts/                     deployment and backup scripts
+# .github/workflows/           CI/CD pipelines

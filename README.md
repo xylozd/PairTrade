@@ -3,7 +3,7 @@
 Intraday statistical arbitrage (pair trading) on National Stock Exchange equities.
 Backend (Python/FastAPI) + frontend (React/TS), deployable to a Linux VPS with JWT authentication.
 
-**Status:** Design & planning phase. No application code written yet.
+**Status:** Phase 0 (foundation) in progress — backend skeleton, config, schemas and tests are in place.
 
 ---
 
@@ -15,6 +15,7 @@ Backend (Python/FastAPI) + frontend (React/TS), deployable to a Linux VPS with J
 | [`docs/STRATEGY.md`](docs/STRATEGY.md) | Trading strategy specification — cointegration engine, signals, risk limits, backtest method, bias checks |
 | [`docs/MASTER-PLAN.md`](docs/MASTER-PLAN.md) | Seven-phase implementation plan with tasks, files, and exit gates |
 | [`docs/MCP-SERVERS-AND-SKILLS.md`](docs/MCP-SERVERS-AND-SKILLS.md) | Environment audit — MCP servers required, skills to use, verified tooling gaps |
+| [`docs/superpowers/plans/phase0-foundation.md`](docs/superpowers/plans/phase0-foundation.md) | Phase 0 backend implementation plan — task-by-task steps and exit criteria |
 
 ---
 
@@ -49,11 +50,14 @@ Backend (Python/FastAPI) + frontend (React/TS), deployable to a Linux VPS with J
 | Item | Status |
 |------|--------|
 | Python 3.13.3 | ✅ installed |
-| `.venv` virtual environment | ✅ created at project root |
+| `.venv` virtual environment | ✅ created at project root, backend deps installed |
+| Backend deps (FastAPI, SQLAlchemy, statsmodels, Polars, DuckDB …) | ✅ installed and pin-guarded by a test |
+| Backend app (`/health` + CORS) | ✅ running — `uvicorn app:app` |
+| Backend test suite | ✅ 89 tests passing |
 | Node v22.23.3 / npm 12.2.0 | ✅ installed |
 | Docker | ❌ **not installed** — required before the Phase 0 exit |
 | PostgreSQL / Redis | ❌ not installed (Docker solves both) |
-| Git repo | ❌ not yet initialised |
+| Git repo | ✅ initialised — working on `feature/phase0-foundation` |
 | 1-year 5-min data source | ❌ **not yet chosen — purchase decision pending** |
 
 ---
@@ -79,6 +83,30 @@ cd ../backend && uvicorn app:app --reload --host 0.0.0.0 --port 8000
 
 # 6. Run frontend
 cd ../frontend && npm run dev     # http://localhost:5173
+```
+
+### Running the tests
+
+```bash
+# From the repo root — pytest.ini puts `backend/` on the import path
+.venv/Scripts/python.exe -m pytest -q          # Windows
+python -m pytest -q                            # Linux/macOS
+```
+
+`tests/unit/test_requirements.py` fails if `backend/requirements.txt` and the
+installed virtualenv drift apart — reinstall with
+`pip install -r backend/requirements.txt` if it does.
+
+---
+
+## Backend Layout (as built)
+
+```
+backend/
+├── app.py            ← FastAPI entry point: GET /health, GET /, CORS
+├── config.py         ← Strategy constants + dated/versioned cost model
+├── schemas.py        ← Pydantic wire models (Signal, Pair, Position, …)
+└── requirements.txt  ← Exact pins from docs/STRATEGY.md §10
 ```
 
 ---

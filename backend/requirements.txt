@@ -1,0 +1,52 @@
+# NSE Intraday Pair Trading — backend dependencies
+#
+# Versions are exact pins, verified against PyPI on 2026-10-22 and matching
+# docs/STRATEGY.md §10. Every pin has a cp313-compatible wheel.
+#
+# Do not float these. `tests/unit/test_requirements.py` fails the build when
+# requirements.txt and the installed virtualenv disagree.
+
+# --- Web / API -----------------------------------------------------------
+fastapi==0.159.1
+uvicorn[standard]==0.54.0
+orjson==3.13.0
+websockets==17.3
+httpx==0.28.1
+python-multipart==0.0.32
+
+# --- Config / models -----------------------------------------------------
+pydantic==2.14.1
+pydantic-settings==2.16.1
+python-dotenv==1.2.4
+
+# --- Database ------------------------------------------------------------
+sqlalchemy==2.1.6
+alembic==1.20.1
+asyncpg==0.32.0
+
+# --- Cache / scheduling --------------------------------------------------
+redis==8.1.0
+apscheduler==3.11.3
+
+# --- Auth ----------------------------------------------------------------
+pyjwt==2.15.1
+argon2-cffi==25.1.0
+
+# --- Quant ---------------------------------------------------------------
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+statsmodels==0.15.0
+arch==8.0.0
+numba==0.68.0
+
+# --- Market data ---------------------------------------------------------
+polars==2.0.0
+duckdb==2.0.0
+pyarrow==26.0.0
+yfinance==1.7.0
+
+# --- Test ----------------------------------------------------------------
+pytest==9.1.1
+pytest-asyncio==1.4.0
+pyyaml==6.0.3

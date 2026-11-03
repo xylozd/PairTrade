@@ -62,7 +62,7 @@ function App() {
         </aside>
       </main>
     </div>
-  </div>
-);
+  );
+}
 
 export default App;
